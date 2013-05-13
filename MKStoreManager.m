@@ -349,7 +349,7 @@ static MKStoreManager* _sharedStoreManager;
 // Call this function to populate your UI
 // this function automatically formats the currency based on the user's locale
 
-- (NSMutableArray*) purchasableObjectsDescription
+- (NSMutableDictionary *) purchasableObjectsDescription
 {
     NSMutableDictionary *productDict = [NSMutableDictionary dictionary];
 	for(int i=0;i<[self.purchasableObjects count];i++)

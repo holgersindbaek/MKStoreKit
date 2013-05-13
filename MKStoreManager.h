@@ -68,7 +68,7 @@
 // convenience methods
 //returns a dictionary with all prices for identifiers
 - (NSMutableDictionary *)pricesDictionary;
-- (NSMutableArray*) purchasableObjectsDescription;
+- (NSMutableDictionary *)purchasableObjectsDescription;
 
 // use this method to start a purchase
 - (void) buyFeature:(NSString*) featureId
