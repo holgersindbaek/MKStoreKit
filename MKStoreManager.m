@@ -288,7 +288,7 @@ static MKStoreManager* _sharedStoreManager;
 {
 	[self.purchasableObjects addObjectsFromArray:response.products];
 	
-#ifndef NDEBUG
+#ifdef DEBUG
 	for(int i=0;i<[self.purchasableObjects count];i++)
 	{
 		SKProduct *product = [self.purchasableObjects objectAtIndex:i];
@@ -575,9 +575,8 @@ static MKStoreManager* _sharedStoreManager;
         
         switch (download.downloadState) {
             case SKDownloadStateFinished:
-#ifndef NDEBUG
                 DLog(@"Download finished: %@", [download description]);
-#endif
+
                 [self provideContent:download.transaction.payment.productIdentifier
                           forReceipt:download.transaction.transactionReceipt
                        hostedContent:[NSArray arrayWithObject:download]];
@@ -812,9 +811,8 @@ static MKStoreManager* _sharedStoreManager;
         
         [[SKPaymentQueue defaultQueue] startDownloads:transaction.downloads];
         // We don't have content yet, and we can't finish the transaction
-#ifndef NDEBUG
         DLog(@"Download(s) started: %@", [transaction description]);
-#endif
+
         return;
     }
 #endif
