@@ -274,13 +274,13 @@ didReceiveResponse:(NSURLResponse *)response
                     [NSCharacterSet whitespaceAndNewlineCharacterSet]];
   sDataFromConnection = nil;
   
-	if([responseString isEqualToString:@"YES"])		
+	if([responseString isEqualToString:@"YES"])
 	{
-    if(onReviewRequestVerificationSucceeded)
-    {
-      onReviewRequestVerificationSucceeded();
-      onReviewRequestVerificationFailed = nil;
-    }
+        if(onReviewRequestVerificationSucceeded)
+        {
+            onReviewRequestVerificationSucceeded();
+            onReviewRequestVerificationSucceeded = nil;
+        }
 	}
   else
   {
