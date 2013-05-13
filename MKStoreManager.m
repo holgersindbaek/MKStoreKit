@@ -198,14 +198,15 @@ static MKStoreManager* _sharedStoreManager;
     return _sharedStoreManager;
 }
 
-#pragma mark Internal MKStoreKit functions
-
 +(NSDictionary*) storeKitItems
 {
     return [NSDictionary dictionaryWithContentsOfFile:
             [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:
              @"MKStoreKitConfigs.plist"]];
 }
+
+#pragma mark Internal MKStoreKit functions
+
 
 - (void) restorePreviousTransactionsOnComplete:(void (^)(NSArray *purchasedItems)) completionBlock
                                        onError:(void (^)(NSError* error)) errorBlock

@@ -39,7 +39,7 @@
 
 #define kReceiptStringKey @"MK_STOREKIT_RECEIPTS_STRING"
 
-#ifndef NDEBUG
+#ifdef DEBUG
 #define kReceiptValidationURL @"https://sandbox.itunes.apple.com/verifyReceipt"
 #else
 #define kReceiptValidationURL @"https://buy.itunes.apple.com/verifyReceipt"
@@ -56,6 +56,8 @@
 
 // this is a class method, since it doesn't require the store manager to be initialized prior to calling
 + (BOOL) isFeaturePurchased:(NSString*) featureId;
+
++ (NSDictionary*) storeKitItems;
 
 @property (nonatomic, strong) NSMutableArray *purchasableObjects;
 @property (nonatomic, strong) NSMutableDictionary *subscriptionProducts;
