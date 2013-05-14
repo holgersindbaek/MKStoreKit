@@ -755,7 +755,7 @@ static MKStoreManager* _sharedStoreManager;
 
 - (void) failedTransaction: (SKPaymentTransaction *)transaction
 {
-    
+    [self showAlertWithTitle:@"Transaction failed" message:transaction.error.localizedDescription];
     DLog(@"Failed transaction: %@", [transaction description]);
     DLog(@"error: %@", transaction.error);
 	
