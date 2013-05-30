@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author   = { 'Mugunth Kumar' => 'mugunth@steinlogic.com' }
   s.source   = { :git => 'https://github.com/holgersindbaek/MKStoreKit.git' }
   s.platform = :ios, '5.0'
-  s.source_files = '*.{h,m}', 'Externals/*.{h,m}'
+  s.source_files = '*.{h,m}', 'Externals/*.{h,m}', 'MKStoreKit/*.{h,m}', 'Server Code/*.{h,m}'
   s.requires_arc = true
 
   s.frameworks = 'StoreKit', 'Security'
