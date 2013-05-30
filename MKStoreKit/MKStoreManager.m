@@ -72,7 +72,7 @@ static MKStoreManager* _sharedStoreManager;
 
 +(void) updateFromiCloud:(NSNotification*) notificationObject {
     
-    DLog(@"Updating from iCloud");
+    NSLog(@"Updating from iCloud");
     
     NSUbiquitousKeyValueStore *iCloudStore = [NSUbiquitousKeyValueStore defaultStore];
     NSDictionary *dict = [iCloudStore dictionaryRepresentation];
@@ -89,7 +89,7 @@ static MKStoreManager* _sharedStoreManager;
                               forServiceName:@"MKStoreKit"
                               updateExisting:YES
                                        error:&error];
-            if(error) DLog(@"%@", error);
+            if(error) NSLog(@"%@", error);
         }
     }];
 }
@@ -122,7 +122,7 @@ static MKStoreManager* _sharedStoreManager;
         
         NSError *error = nil;
         [SFHFKeychainUtils storeUsername:key andPassword:objectString forServiceName:@"MKStoreKit" updateExisting:YES error:&error];
-        if(error) DLog(@"%@", error);
+        if(error) NSLog(@"%@", error);
         
         if([self iCloudAvailable]) {
             [[NSUbiquitousKeyValueStore defaultStore] setObject:objectString forKey:key];
@@ -132,7 +132,7 @@ static MKStoreManager* _sharedStoreManager;
         
         NSError *error = nil;
         [SFHFKeychainUtils deleteItemForUsername:key andServiceName:@"MKStoreKit" error:&error];
-        if(error) DLog(@"%@", error);
+        if(error) NSLog(@"%@", error);
         
         if([self iCloudAvailable]) {
             [[NSUbiquitousKeyValueStore defaultStore] removeObjectForKey:key];
@@ -154,7 +154,7 @@ static MKStoreManager* _sharedStoreManager;
 {
     NSError *error = nil;
     id password = [SFHFKeychainUtils getPasswordForUsername:key andServiceName:@"MKStoreKit" error:&error];
-    if(error) DLog(@"%@", error);
+    if(error) NSLog(@"%@", error);
     
     return password;
 }
@@ -293,12 +293,12 @@ static MKStoreManager* _sharedStoreManager;
 	for(int i=0;i<[self.purchasableObjects count];i++)
 	{
 		SKProduct *product = [self.purchasableObjects objectAtIndex:i];
-		DLog(@"Feature: %@, Cost: %f, ID: %@",[product localizedTitle],
+		NSLog(@"Feature: %@, Cost: %f, ID: %@",[product localizedTitle],
              [[product price] doubleValue], [product productIdentifier]);
 	}
 	
 	for(NSString *invalidProduct in response.invalidProductIdentifiers)
-		DLog(@"Problem in iTunes connect configuration for product: %@", invalidProduct);
+		NSLog(@"Problem in iTunes connect configuration for product: %@", invalidProduct);
 #endif
     
 	self.isProductsAvailable = YES;
@@ -447,7 +447,7 @@ static MKStoreManager* _sharedStoreManager;
      }
                                       onError:^(NSError* error)
      {
-         DLog(@"Review request cannot be checked now: %@", [error description]);
+         NSLog(@"Review request cannot be checked now: %@", [error description]);
          [self addToQueue:featureId];
      }];
 }
@@ -520,19 +520,19 @@ static MKStoreManager* _sharedStoreManager;
                      [[NSNotificationCenter defaultCenter] postNotificationName:kSubscriptionsInvalidNotification
                                                                          object:product.productId];
                      
-                     DLog(@"Subscription: %@ is inactive", product.productId);
+                     NSLog(@"Subscription: %@ is inactive", product.productId);
                      product.receipt = nil;
                      [self.subscriptionProducts setObject:product forKey:productId];
                      [MKStoreManager setObject:nil forKey:product.productId];
                  }
                  else
                  {
-                     DLog(@"Subscription: %@ is active", product.productId);
+                     NSLog(@"Subscription: %@ is active", product.productId);
                  }
              }
                                      onError:^(NSError* error)
              {
-                 DLog(@"Unable to check for subscription validity right now");
+                 NSLog(@"Unable to check for subscription validity right now");
              }];
         }
         
@@ -576,7 +576,7 @@ static MKStoreManager* _sharedStoreManager;
         
         switch (download.downloadState) {
             case SKDownloadStateFinished:
-                DLog(@"Download finished: %@", [download description]);
+                NSLog(@"Download finished: %@", [download description]);
 
                 [self provideContent:download.transaction.payment.productIdentifier
                           forReceipt:download.transaction.transactionReceipt
@@ -615,7 +615,7 @@ static MKStoreManager* _sharedStoreManager;
          }
                                              onError:^(NSError* error)
          {
-             DLog(@"%@", [error description]);
+             NSLog(@"%@", [error description]);
          }];
     }
     else
@@ -633,7 +633,7 @@ static MKStoreManager* _sharedStoreManager;
                 }
                 else
                 {
-                    DLog(@"Receipt invalid");
+                    NSLog(@"Receipt invalid");
                 }
             }
         }
@@ -662,7 +662,7 @@ static MKStoreManager* _sharedStoreManager;
                  }
                  else
                  {
-                     DLog(@"The receipt could not be verified");
+                     NSLog(@"The receipt could not be verified");
                  }
              }];
         }
@@ -756,8 +756,8 @@ static MKStoreManager* _sharedStoreManager;
 - (void) failedTransaction: (SKPaymentTransaction *)transaction
 {
     [self showAlertWithTitle:@"Transaction failed" message:transaction.error.localizedDescription];
-    DLog(@"Failed transaction: %@", [transaction description]);
-    DLog(@"error: %@", transaction.error);
+    NSLog(@"Failed transaction: %@", [transaction description]);
+    NSLog(@"error: %@", transaction.error);
 	
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
@@ -782,7 +782,7 @@ static MKStoreManager* _sharedStoreManager;
         
         [[SKPaymentQueue defaultQueue] startDownloads:transaction.downloads];
         // We don't have content yet, and we can't finish the transaction
-        DLog(@"Download(s) started: %@", [transaction description]);
+        NSLog(@"Download(s) started: %@", [transaction description]);
         return;
     }
 #endif
@@ -812,7 +812,7 @@ static MKStoreManager* _sharedStoreManager;
         
         [[SKPaymentQueue defaultQueue] startDownloads:transaction.downloads];
         // We don't have content yet, and we can't finish the transaction
-        DLog(@"Download(s) started: %@", [transaction description]);
+        NSLog(@"Download(s) started: %@", [transaction description]);
 
         return;
     }
